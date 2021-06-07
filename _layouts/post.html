@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/css/style.css">
+  {% include head.html %}
+</head>
+<body class="{{ page.customclass }}">
+    {% include header.html %}
+    
+    <h2>{{ page.title }}</h2>
+    <span class="post-date">{{ page.date | date: '%B %-d, %Y' }}</span>
+    <!-- <span class="post-categories">Categories: {{ page.categories }}</span> -->
+
+    <section>
+        {{ content }}
+    </section>
+
+</body>
+</html>

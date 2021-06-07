@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  jekyll:
+    image: jekyll/jekyll:3.6
+    command: jekyll build
+    volumes:
+      - .:/srv/jekyll
+
+  nginx:
+    image: nginx:stable
+    ports:
+      - 8000:80
+    volumes:
+      - ./_site:/var/www/shirleyyin.com/html/
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    environment:
+      - VIRTUAL_PORT=8000
+      - VIRTUAL_HOST=shirleyyin.com
+      - LETSENCRYPT_HOST=shirleyyin.com
+      - LETSENCRYPT_EMAIL=contact@shirleyyin.com
+    networks:
+      - nginx-proxy_nginx-proxy
+    depends_on:
+      - jekyll
+
+networks:
+  nginx-proxy_nginx-proxy:
+    external: true
